@@ -43,14 +43,20 @@ class LifePlanForm(FlaskForm):
     real_estate = IntegerField('不動産資産（万円）', validators=[NumberRange(min=0)])
     debt = IntegerField('負債（万円）', validators=[NumberRange(min=0)])
     
-    # 支出情報
-    expense_housing = IntegerField('住居費（万円/年）', validators=[NumberRange(min=0)])
-    expense_living = IntegerField('生活費（万円/年）', validators=[NumberRange(min=0)])
-    expense_education = IntegerField('教育費（万円/年）', validators=[NumberRange(min=0)])
-    expense_insurance = IntegerField('保険料（万円/年）', validators=[NumberRange(min=0)])
-    expense_loan = IntegerField('ローン返済（万円/年）', validators=[NumberRange(min=0)])
-    expense_entertainment = IntegerField('娯楽費（万円/年）', validators=[NumberRange(min=0)])
-    expense_transportation = IntegerField('交通費（万円/年）', validators=[NumberRange(min=0)])
+    # 支出情報の単位選択
+    expense_unit = SelectField('支出単位', choices=[
+        ('yearly', '年間'),
+        ('monthly', '月間')
+    ], default='yearly')
+    
+    # 支出情報（単位は「万円/年」または「万円/月」）
+    expense_housing = IntegerField('住居費', validators=[NumberRange(min=0)])
+    expense_living = IntegerField('生活費', validators=[NumberRange(min=0)])
+    expense_education = IntegerField('教育費', validators=[NumberRange(min=0)])
+    expense_insurance = IntegerField('保険料', validators=[NumberRange(min=0)])
+    expense_loan = IntegerField('ローン返済', validators=[NumberRange(min=0)])
+    expense_entertainment = IntegerField('娯楽費', validators=[NumberRange(min=0)])
+    expense_transportation = IntegerField('交通費', validators=[NumberRange(min=0)])
     
     submit = SubmitField('保存')
     
