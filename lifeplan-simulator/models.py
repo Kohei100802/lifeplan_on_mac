@@ -59,14 +59,17 @@ class LifePlan(db.Model):
     real_estate = db.Column(db.Integer, default=0)  # 不動産資産（万円）
     debt = db.Column(db.Integer, default=0)  # 負債（万円）
     
+    # 支出単位（yearly または monthly）
+    expense_unit = db.Column(db.String(10), default='yearly')
+
     # 支出情報
-    expense_housing = db.Column(db.Integer, default=0)  # 住居費（万円/年）
-    expense_living = db.Column(db.Integer, default=0)  # 生活費（万円/年）
-    expense_education = db.Column(db.Integer, default=0)  # 教育費（万円/年）
-    expense_insurance = db.Column(db.Integer, default=0)  # 保険料（万円/年）
-    expense_loan = db.Column(db.Integer, default=0)  # ローン返済（万円/年）
-    expense_entertainment = db.Column(db.Integer, default=0)  # 娯楽費（万円/年）
-    expense_transportation = db.Column(db.Integer, default=0)  # 交通費（万円/年）
+    expense_housing = db.Column(db.Integer, default=0)  # 住居費
+    expense_living = db.Column(db.Integer, default=0)  # 生活費
+    expense_education = db.Column(db.Integer, default=0)  # 教育費
+    expense_insurance = db.Column(db.Integer, default=0)  # 保険料
+    expense_loan = db.Column(db.Integer, default=0)  # ローン返済
+    expense_entertainment = db.Column(db.Integer, default=0)  # 娯楽費
+    expense_transportation = db.Column(db.Integer, default=0)  # 交通費
     
     # リレーションシップ
     life_events = db.relationship('LifeEvent', backref='lifeplan', lazy='dynamic', cascade="all, delete-orphan")
@@ -90,6 +93,7 @@ class LifePlan(db.Model):
             'investment_return_rate': self.investment_return_rate,
             'real_estate': self.real_estate,
             'debt': self.debt,
+            'expense_unit': self.expense_unit,
             'expense_housing': self.expense_housing,
             'expense_living': self.expense_living,
             'expense_education': self.expense_education,
